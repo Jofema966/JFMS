@@ -1,0 +1,23 @@
+
+:root{--bg:#0b0f16;--bg-alt:#0e141b;--card:#141a23;--border:#1f2632;--text:#e5e7eb;--muted:#9aa4b2;--acc:#2dd4bf;--ring:#3b82f6}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.site-header{position:sticky;top:0;background:linear-gradient(180deg,rgba(11,16,22,.95),rgba(11,16,22,.7));border-bottom:1px solid var(--border);backdrop-filter:saturate(140%) blur(6px);z-index:20}
+.site-header .wrap{max-width:1140px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:700}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.nav{display:flex;gap:12px;align-items:center}
+.nav a{color:#cbd5e1;text-decoration:none;position:relative;padding:6px 4px}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--acc);transition:right .25s ease}
+.nav a:hover::after{right:0}.nav-toggle{display:none;border:1px solid #2a3444;color:#cbd5e1;border-radius:8px;padding:8px 10px;background:transparent}
+.hero{padding:80px 0;background:linear-gradient(180deg,#0c0f14 0%,#0c0f14 60%,#0e131a 100%)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px}
+.btn{display:inline-block;padding:10px 16px;border-radius:12px;border:1px solid #273244;background:#1a2230;color:var(--text);text-decoration:none}
+.btn-acc{background:var(--acc);border-color:transparent;color:#0b1219}
+.section{padding:64px 0}.section.alt{background:var(--bg-alt)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.list{list-style:disc;padding-left:20px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:12px}.steps li{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px}
+.site-footer{border-top:1px solid var(--border);padding:22px 0;background:#0b1016;text-align:center}
+.reveal{opacity:0;transform:translateY(18px)}.reveal.visible{opacity:1;transform:none;transition:opacity .5s ease, transform .5s ease}
+.reveal-stagger>*{opacity:0;transform:translateY(12px)}.reveal-stagger.visible>*{opacity:1;transform:none;transition:opacity .5s ease, transform .5s ease}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.nav{display:none}.nav.open{display:flex;flex-direction:column}.nav-toggle{display:inline-block}}

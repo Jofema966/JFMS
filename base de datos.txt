@@ -1,0 +1,102 @@
+create table PERSONA (
+    Ci int(8) not null,
+    Pnom varchar(15) not null,
+    Pape varchar(15) not null,
+    FechNac date not null,
+    Contraseña int(9) not null,
+    Email varchar(30) not null,
+    constraint PK_PERSONA primary key(Ci)
+);
+
+create table INTERESADO (
+    CiU int(8) not null,
+    Pnom varchar(15) not null,
+    Pape varchar(15) not null,
+    FechNac date not null,
+    constraint PK_INTERESADO primary key(CiU),
+    constraint FK_INT_PERSONA foreign key(CiU) references PERSONA(Ci)
+);
+
+create table SOCIO (
+    CiS int(8) not null,
+    IDsocio int(9) not null,
+    HorTrab int(3) not null,
+    Pnom varchar(15) not null,
+    Pape varchar(15) not null,
+    FechNac date not null,
+    constraint PK_SOCIO primary key(CiS, IDsocio),
+    constraint FK_SOCI_PERSONA foreign key(CiS) references PERSONA(Ci)
+);
+
+create table ADMINISTRADOR(
+    CiA int(8) not null,
+    IDadmin int(9) not null,
+    Pnom varchar(15) not null,
+    Pape varchar(15) not null,
+    FechNac date not null,
+    constraint PK_ADMINISTRADOR primary key(CiA, IDadmin),
+    constraint FK_ADM_PERSONA foreign key(CiA) references PERSONA(Ci)
+);
+
+create table VIVIENDA (
+    Bloque int(2) not null,
+    NumPuerta int(5) not null,
+    constraint PK_VIVIENDA primary key(NumPuerta)
+);
+
+create table PAGO (
+    Comprobante varchar(15) not null,
+    IDpago varchar(9) not null,
+    PagoCompen int(15),
+    Monto int(15) not null,
+    TipoPago varchar(15) not null,
+    FechaPago date not null,
+    constraint PK_PAGO primary key(Comprobante, IDpago)
+);
+
+create table OBRA (
+    IDobr int(9) not null,
+    Estado varchar(15) not null,
+    TipoObr varchar(15) not null,
+    FechInicio date not null,
+    FechFin date not null,
+    constraint PK_OBRA primary key(IDobr)
+);
+
+create table SEÑA (
+    CiU int(8) not null,
+    Comprobante varchar(15) not null,
+    IDpago varchar(9) not null,
+    constraint PK_SEÑA primary key(CiU, Comprobante, IDpago),
+    constraint FK_SEÑA_INTERESADO foreign key(CiU) references INTERESADO(CiU),
+    constraint FK_SEÑA_PAGO foreign key(Comprobante, IDpago) references PAGO(Comprobante, IDpago)
+);
+
+create table MENSUALIDAD (
+    CiS int(8) not null,
+    IDsocio int(9) not null,
+    Comprobante varchar(15) not null,
+    IDpago varchar(9) not null,
+    constraint PK_MENSUALIDAD primary key(CiS, IDsocio, Comprobante, IDpago),
+    constraint FK_MEN_SOCIO foreign key(CiS, IDsocio) references SOCIO(CiS, IDsocio),
+    constraint FK_MEN_PAGO foreign key(Comprobante, IDpago) references PAGO(Comprobante, IDpago)
+);
+
+create table ADMINISTRA(
+    CiA int(8) not null,
+    IDadmin int(9) not null,
+    NumPuerta int(5) not null,
+    constraint PK_ADMINISTRA primary key(CiA, IDadmin, NumPuerta),
+    constraint FK_ADM_ADMINISTRADOR foreign key(CiA, IDadmin) references ADMINISTRADOR(CiA, IDadmin),
+    constraint FK_ADM_VIVIENDA foreign key(NumPuerta) references VIVIENDA(NumPuerta)
+);
+
+create table ASIGNA (
+    CiS int(8) not null,
+    CiA int(8) not null,
+    IDadmin int(9) not null,
+    NumPuerta int(5) not null,
+    constraint PK_ASIGNA primary key(CiS, CiA, IDadmin, NumPuerta),
+    constraint FK_ASI_ADMINISTRA foreign key(CiA, IDadmin, NumPuerta) references ADMINISTRA(CiA, IDadmin, NumPuerta),
+    constraint FK_ASI_SOCIO foreign key(CiS) references SOCIO(CiS)
+);
